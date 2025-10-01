@@ -2168,3 +2168,11 @@ video {
     line-height: 1;
   }
 }
+
+.footer-text {
+    width: fit-content; 
+    margin: 0 auto;        
+    text-align: center;    
+    color: #fff;          
+    padding: 10px 0;       
+}
