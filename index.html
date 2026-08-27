@@ -1589,6 +1589,7 @@
     </footer>
 
     <script>
+      // ===== INITIALIZE AOS =====
       AOS.init({
         duration: 800,
         easing: "ease-out-quad",
@@ -1597,139 +1598,202 @@
         mirror: false,
       });
 
-      // active nav highlight
+      // ===== HAMBURGER MENU =====
+      const menuToggle = document.getElementById("menuToggle");
+      const mobileMenu = document.getElementById("mobileMenu");
+      const menuIcon = document.getElementById("menuIcon");
+
+      // Toggle menu on button click
+      if (menuToggle && mobileMenu && menuIcon) {
+        menuToggle.addEventListener("click", function (e) {
+          e.stopPropagation();
+          mobileMenu.classList.toggle("hidden");
+
+          // Toggle icon between bars and x
+          if (mobileMenu.classList.contains("hidden")) {
+            menuIcon.className = "fas fa-bars text-2xl";
+          } else {
+            menuIcon.className = "fas fa-times text-2xl";
+          }
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener("click", function (e) {
+          const isClickInside =
+            menuToggle.contains(e.target) || mobileMenu.contains(e.target);
+          if (!isClickInside && !mobileMenu.classList.contains("hidden")) {
+            closeMenu();
+          }
+        });
+
+        // Close menu function
+        function closeMenu() {
+          mobileMenu.classList.add("hidden");
+          menuIcon.className = "fas fa-bars text-2xl";
+        }
+
+        // Close menu on escape key
+        document.addEventListener("keydown", function (e) {
+          if (e.key === "Escape" && !mobileMenu.classList.contains("hidden")) {
+            closeMenu();
+          }
+        });
+
+        // Make closeMenu available globally for onclick attributes
+        window.closeMenu = closeMenu;
+      }
+
+      // ===== ACTIVE NAV HIGHLIGHT (Combined for desktop & mobile) =====
       const sections = document.querySelectorAll("section");
-      const navLinks = document.querySelectorAll("header nav a");
+      const allNavLinks = document.querySelectorAll(
+        "header nav a, #mobileMenu a",
+      );
+
       window.addEventListener("scroll", () => {
         let current = "";
         sections.forEach((section) => {
           const top = section.offsetTop - 120;
-          if (scrollY >= top) {
+          if (window.scrollY >= top) {
             current = section.getAttribute("id");
           }
         });
-        navLinks.forEach((link) => {
-          link.classList.remove("active");
+
+        allNavLinks.forEach((link) => {
+          // Remove all active classes
+          link.classList.remove("active", "text-[#ece8e4]");
+          link.classList.add("text-[#b0aaa4]");
+
           if (link.getAttribute("href") === `#${current}`) {
-            link.classList.add("active");
+            link.classList.add("active", "text-[#ece8e4]");
+            link.classList.remove("text-[#b0aaa4]");
           }
         });
       });
 
       // ===== PROJECT CAROUSEL =====
       const track = document.getElementById("projectsTrack");
-      const slides = track.querySelectorAll(".project-slide");
-      const prevBtn = document.getElementById("prevProject");
-      const nextBtn = document.getElementById("nextProject");
-      const dotsContainer = document.getElementById("carouselDots");
 
-      let currentIndex = 0;
-      let totalSlides = slides.length;
-      let slidesPerView = 1;
-      let maxIndex = totalSlides - 1;
+      // Only run carousel if elements exist
+      if (track) {
+        const slides = track.querySelectorAll(".project-slide");
+        const prevBtn = document.getElementById("prevProject");
+        const nextBtn = document.getElementById("nextProject");
+        const dotsContainer = document.getElementById("carouselDots");
 
-      // Determine slides per view based on screen width
-      function getSlidesPerView() {
-        if (window.innerWidth >= 1024) return 3;
-        if (window.innerWidth >= 768) return 2;
-        return 1;
-      }
+        if (slides.length > 0 && prevBtn && nextBtn) {
+          let currentIndex = 0;
+          let totalSlides = slides.length;
+          let slidesPerView = 1;
+          let maxIndex = totalSlides - 1;
 
-      function updateCarousel() {
-        slidesPerView = getSlidesPerView();
-        maxIndex = Math.max(0, totalSlides - slidesPerView);
-
-        // Clamp current index
-        if (currentIndex > maxIndex) currentIndex = maxIndex;
-        if (currentIndex < 0) currentIndex = 0;
-
-        const slideWidth = 100 / slidesPerView;
-        const offset = currentIndex * slideWidth;
-        track.style.transform = `translateX(-${offset}%)`;
-
-        // Update dots
-        const dotCount = Math.ceil(totalSlides / slidesPerView);
-        const activeDot = Math.floor(currentIndex / slidesPerView);
-        dotsContainer.innerHTML = "";
-        for (let i = 0; i < dotCount; i++) {
-          const dot = document.createElement("button");
-          dot.className = `carousel-dot ${i === activeDot ? "active" : ""}`;
-          dot.setAttribute("aria-label", `Go to slide ${i + 1}`);
-          dot.addEventListener("click", () => {
-            currentIndex = i * slidesPerView;
-            updateCarousel();
-          });
-          dotsContainer.appendChild(dot);
-        }
-
-        // Update button states
-        prevBtn.disabled = currentIndex === 0;
-        nextBtn.disabled = currentIndex >= maxIndex;
-      }
-
-      function goToPrev() {
-        if (currentIndex > 0) {
-          currentIndex = Math.max(0, currentIndex - slidesPerView);
-          updateCarousel();
-        }
-      }
-
-      function goToNext() {
-        if (currentIndex < maxIndex) {
-          currentIndex = Math.min(maxIndex, currentIndex + slidesPerView);
-          updateCarousel();
-        }
-      }
-
-      // Event listeners
-      prevBtn.addEventListener("click", goToPrev);
-      nextBtn.addEventListener("click", goToNext);
-
-      // Keyboard navigation
-      document.addEventListener("keydown", (e) => {
-        if (e.key === "ArrowLeft") goToPrev();
-        if (e.key === "ArrowRight") goToNext();
-      });
-
-      // Touch swipe support
-      let touchStartX = 0;
-      let touchEndX = 0;
-      const carouselWrapper = document.querySelector(
-        ".projects-carousel-wrapper",
-      );
-
-      carouselWrapper.addEventListener(
-        "touchstart",
-        (e) => {
-          touchStartX = e.changedTouches[0].screenX;
-        },
-        { passive: true },
-      );
-
-      carouselWrapper.addEventListener(
-        "touchend",
-        (e) => {
-          touchEndX = e.changedTouches[0].screenX;
-          const diff = touchStartX - touchEndX;
-          if (Math.abs(diff) > 50) {
-            if (diff > 0) goToNext();
-            else goToPrev();
+          // Determine slides per view based on screen width
+          function getSlidesPerView() {
+            if (window.innerWidth >= 1024) return 3;
+            if (window.innerWidth >= 768) return 2;
+            return 1;
           }
-        },
-        { passive: true },
-      );
 
-      // Update on resize
-      let resizeTimeout;
-      window.addEventListener("resize", () => {
-        clearTimeout(resizeTimeout);
-        resizeTimeout = setTimeout(() => {
+          function updateCarousel() {
+            slidesPerView = getSlidesPerView();
+            maxIndex = Math.max(0, totalSlides - slidesPerView);
+
+            // Clamp current index
+            if (currentIndex > maxIndex) currentIndex = maxIndex;
+            if (currentIndex < 0) currentIndex = 0;
+
+            const slideWidth = 100 / slidesPerView;
+            const offset = currentIndex * slideWidth;
+            track.style.transform = `translateX(-${offset}%)`;
+
+            // Update dots
+            if (dotsContainer) {
+              const dotCount = Math.ceil(totalSlides / slidesPerView);
+              const activeDot = Math.floor(currentIndex / slidesPerView);
+              dotsContainer.innerHTML = "";
+              for (let i = 0; i < dotCount; i++) {
+                const dot = document.createElement("button");
+                dot.className = `carousel-dot ${i === activeDot ? "active" : ""}`;
+                dot.setAttribute("aria-label", `Go to slide ${i + 1}`);
+                dot.addEventListener("click", () => {
+                  currentIndex = i * slidesPerView;
+                  updateCarousel();
+                });
+                dotsContainer.appendChild(dot);
+              }
+            }
+
+            // Update button states
+            prevBtn.disabled = currentIndex === 0;
+            nextBtn.disabled = currentIndex >= maxIndex;
+          }
+
+          function goToPrev() {
+            if (currentIndex > 0) {
+              currentIndex = Math.max(0, currentIndex - slidesPerView);
+              updateCarousel();
+            }
+          }
+
+          function goToNext() {
+            if (currentIndex < maxIndex) {
+              currentIndex = Math.min(maxIndex, currentIndex + slidesPerView);
+              updateCarousel();
+            }
+          }
+
+          // Event listeners
+          prevBtn.addEventListener("click", goToPrev);
+          nextBtn.addEventListener("click", goToNext);
+
+          // Keyboard navigation
+          document.addEventListener("keydown", (e) => {
+            if (e.key === "ArrowLeft") goToPrev();
+            if (e.key === "ArrowRight") goToNext();
+          });
+
+          // Touch swipe support
+          let touchStartX = 0;
+          let touchEndX = 0;
+          const carouselWrapper = document.querySelector(
+            ".projects-carousel-wrapper",
+          );
+
+          if (carouselWrapper) {
+            carouselWrapper.addEventListener(
+              "touchstart",
+              (e) => {
+                touchStartX = e.changedTouches[0].screenX;
+              },
+              { passive: true },
+            );
+
+            carouselWrapper.addEventListener(
+              "touchend",
+              (e) => {
+                touchEndX = e.changedTouches[0].screenX;
+                const diff = touchStartX - touchEndX;
+                if (Math.abs(diff) > 50) {
+                  if (diff > 0) goToNext();
+                  else goToPrev();
+                }
+              },
+              { passive: true },
+            );
+          }
+
+          // Update on resize
+          let resizeTimeout;
+          window.addEventListener("resize", () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+              updateCarousel();
+            }, 200);
+          });
+
+          // Initialize
           updateCarousel();
-        }, 200);
-      });
-
-      // Initialize
-      updateCarousel();
+        }
+      }
     </script>
   </body>
 </html>
