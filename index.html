@@ -429,6 +429,8 @@
           <i class="fas fa-asterisk text-[#c9a87c] text-base sm:text-xl"></i>
           CHUKWUDE
         </a>
+
+        <!-- Desktop Navigation -->
         <nav class="hidden md:flex gap-6 lg:gap-8 items-center">
           <a class="nav-link-glow active" href="#home">Home</a>
           <a class="nav-link-glow" href="#about">About</a>
@@ -436,15 +438,74 @@
           <a class="nav-link-glow" href="#projects">Projects</a>
           <a class="nav-link-glow" href="#contact">Contact</a>
         </nav>
+
+        <!-- Desktop CV Button (shows on md and up) -->
         <a
           class="hidden md:inline-flex items-center justify-center bg-[#ece8e4] text-[#0f0e0e] font-label-md text-label-md uppercase px-5 py-2.5 lg:px-6 lg:py-3 border border-[#ece8e4] hover:bg-[#c9a87c] hover:border-[#c9a87c] hover:text-[#0f0e0e] transition-all duration-300 shadow-lg gap-2 text-xs lg:text-sm"
-          href="#resume"
+          href="Ebube Miracle Chukwude – Curriculum Vitae CV.pdf"
+          target="_blank"
         >
-          <i class="fas fa-file-alt"></i> Resume
+          <i class="fas fa-file-pdf"></i> View CV
         </a>
-        <button class="md:hidden text-[#ece8e4]">
-          <i class="fas fa-bars text-xl"></i>
+
+        <!-- Hamburger Button -->
+        <button
+          id="menuToggle"
+          class="md:hidden text-[#ece8e4] hover:text-[#c9a87c] transition-colors"
+          aria-label="Toggle menu"
+        >
+          <i id="menuIcon" class="fas fa-bars text-2xl"></i>
         </button>
+      </div>
+
+      <!-- Mobile Menu (Hidden by default) -->
+      <div
+        id="mobileMenu"
+        class="md:hidden hidden bg-[#1a1817] border-t border-[#2a2624] shadow-2xl"
+      >
+        <div class="flex flex-col px-4 py-4 space-y-3">
+          <a
+            class="nav-link-glow active text-[#ece8e4] hover:text-[#c9a87c] transition-colors py-2 px-3 rounded-lg hover:bg-[#2a2624]"
+            href="#home"
+            onclick="closeMenu()"
+            >Home</a
+          >
+          <a
+            class="nav-link-glow text-[#b0aaa4] hover:text-[#ece8e4] transition-colors py-2 px-3 rounded-lg hover:bg-[#2a2624]"
+            href="#about"
+            onclick="closeMenu()"
+            >About</a
+          >
+          <a
+            class="nav-link-glow text-[#b0aaa4] hover:text-[#ece8e4] transition-colors py-2 px-3 rounded-lg hover:bg-[#2a2624]"
+            href="#skills"
+            onclick="closeMenu()"
+            >Skills</a
+          >
+          <a
+            class="nav-link-glow text-[#b0aaa4] hover:text-[#ece8e4] transition-colors py-2 px-3 rounded-lg hover:bg-[#2a2624]"
+            href="#projects"
+            onclick="closeMenu()"
+            >Projects</a
+          >
+          <a
+            class="nav-link-glow text-[#b0aaa4] hover:text-[#ece8e4] transition-colors py-2 px-3 rounded-lg hover:bg-[#2a2624]"
+            href="#contact"
+            onclick="closeMenu()"
+            >Contact</a
+          >
+          <hr class="border-[#2a2624] my-2" />
+
+          <!-- Mobile CV Button (shows on mobile only) -->
+          <a
+            class="flex md:hidden items-center justify-center bg-[#ece8e4] text-[#0f0e0e] font-label-md text-label-md uppercase px-5 py-3 rounded-lg hover:bg-[#c9a87c] transition-all duration-300 gap-2 text-sm"
+            href="./Goodness_C_CV.pdf"
+            target="_blank"
+            onclick="closeMenu()"
+          >
+            <i class="fas fa-file-pdf"></i> View CV
+          </a>
+        </div>
       </div>
     </header>
 
