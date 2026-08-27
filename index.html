@@ -1307,63 +1307,69 @@
             </div>
             <div data-aos="fade-left" class="w-full">
               <form
-                class="contact-form-wrapper space-y-4 sm:space-y-5"
-                action="https://formsubmit.co/ebubemiracle336@gmail.com"
-                method="POST"
-              >
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-                  <div class="w-full">
-                    <label
-                      class="block font-label-sm text-[10px] sm:text-xs uppercase tracking-wider text-[#b0aaa4] mb-1 sm:mb-1.5"
-                      ><i class="fas fa-user mr-1.5"></i>Name</label
-                    >
-                    <input
-                      class="w-full input-fancy-dark p-2.5 sm:p-3 rounded-xl font-body-md text-sm sm:text-base transition-all"
-                      placeholder="Your name"
-                      type="text"
-                    />
-                  </div>
-                  <div class="w-full">
-                    <label
-                      class="block font-label-sm text-[10px] sm:text-xs uppercase tracking-wider text-[#b0aaa4] mb-1 sm:mb-1.5"
-                      ><i class="fas fa-envelope mr-1.5"></i>Email</label
-                    >
-                    <input
-                      class="w-full input-fancy-dark p-2.5 sm:p-3 rounded-xl font-body-md text-sm sm:text-base transition-all"
-                      placeholder="you@example.com"
-                      type="email"
-                    />
-                  </div>
-                </div>
-                <div class="w-full">
-                  <label
-                    class="block font-label-sm text-[10px] sm:text-xs uppercase tracking-wider text-[#b0aaa4] mb-1 sm:mb-1.5"
-                    ><i class="fas fa-tag mr-1.5"></i>Subject</label
-                  >
-                  <input
-                    class="w-full input-fancy-dark p-2.5 sm:p-3 rounded-xl font-body-md text-sm sm:text-base transition-all"
-                    placeholder="Project idea"
-                    type="text"
-                  />
-                </div>
-                <div class="w-full">
-                  <label
-                    class="block font-label-sm text-[10px] sm:text-xs uppercase tracking-wider text-[#b0aaa4] mb-1 sm:mb-1.5"
-                    ><i class="fas fa-pencil-alt mr-1.5"></i>Message</label
-                  >
-                  <textarea
-                    class="w-full input-fancy-dark p-2.5 sm:p-3 rounded-xl font-body-md text-sm sm:text-base transition-all resize-none"
-                    rows="4"
-                    placeholder="Tell me about your vision..."
-                  ></textarea>
-                </div>
-                <button
-                  class="w-full inline-flex items-center justify-center bg-[#ece8e4] text-[#0f0e0e] font-label-md text-xs sm:text-sm uppercase px-6 sm:px-8 py-3.5 sm:py-4 btn-glow-dark transition-all duration-300 rounded-xl gap-2"
-                  type="submit"
-                >
-                  <i class="fas fa-paper-plane"></i> Send message
-                </button>
-              </form>
+				class="contact-form-wrapper space-y-4 sm:space-y-5"
+				action="https://formsubmit.co/ebubemiracle336@gmail.com"
+				method="POST"
+				>
+				<input type="hidden" name="_subject" value="New portfolio contact form message">
+
+				<div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+					<div class="w-full">
+					<label
+						class="block font-label-sm text-[10px] sm:text-xs uppercase tracking-wider text-[#b0aaa4] mb-1 sm:mb-1.5"
+						><i class="fas fa-user mr-1.5"></i>Name</label
+					>
+					<input
+						name="name"
+						class="w-full input-fancy-dark p-2.5 sm:p-3 rounded-xl font-body-md text-sm sm:text-base transition-all"
+						placeholder="Your name"
+						type="text"
+					/>
+					</div>
+					<div class="w-full">
+					<label
+						class="block font-label-sm text-[10px] sm:text-xs uppercase tracking-wider text-[#b0aaa4] mb-1 sm:mb-1.5"
+						><i class="fas fa-envelope mr-1.5"></i>Email</label
+					>
+					<input
+						name="email"
+						class="w-full input-fancy-dark p-2.5 sm:p-3 rounded-xl font-body-md text-sm sm:text-base transition-all"
+						placeholder="you@example.com"
+						type="email"
+					/>
+					</div>
+				</div>
+				<div class="w-full">
+					<label
+					class="block font-label-sm text-[10px] sm:text-xs uppercase tracking-wider text-[#b0aaa4] mb-1 sm:mb-1.5"
+					><i class="fas fa-tag mr-1.5"></i>Subject</label
+					>
+					<input
+					name="subject"
+					class="w-full input-fancy-dark p-2.5 sm:p-3 rounded-xl font-body-md text-sm sm:text-base transition-all"
+					placeholder="Project idea"
+					type="text"
+					/>
+				</div>
+				<div class="w-full">
+					<label
+					class="block font-label-sm text-[10px] sm:text-xs uppercase tracking-wider text-[#b0aaa4] mb-1 sm:mb-1.5"
+					><i class="fas fa-pencil-alt mr-1.5"></i>Message</label
+					>
+					<textarea
+					name="message"
+					class="w-full input-fancy-dark p-2.5 sm:p-3 rounded-xl font-body-md text-sm sm:text-base transition-all resize-none"
+					rows="4"
+					placeholder="Tell me about your vision..."
+					></textarea>
+				</div>
+				<button
+					class="w-full inline-flex items-center justify-center bg-[#ece8e4] text-[#0f0e0e] font-label-md text-xs sm:text-sm uppercase px-6 sm:px-8 py-3.5 sm:py-4 btn-glow-dark transition-all duration-300 rounded-xl gap-2"
+					type="submit"
+				>
+					<i class="fas fa-paper-plane"></i> Send message
+				</button>
+			</form>
             </div>
           </div>
         </div>
